@@ -1,10 +1,10 @@
-import type { PillStepperProps } from "../core/types";
+import type { StepperProps } from "../core/types";
 import { useStepWindow } from "./hooks/useStepWindow";
 import { useAnimatingSteps } from "./hooks/useAnimatingSteps";
-import { PillStep } from "./PillStep";
-import "../styles/PillStepper.css";
+import { Step } from "./Step";
+import "../styles/Stepper.css";
 
-export function PillStepper({
+export function Stepper({
   count,
   active,
   onStepClick,
@@ -15,7 +15,7 @@ export function PillStepper({
   className,
   filling,
   fillDuration,
-}: PillStepperProps): React.ReactElement {
+}: StepperProps): React.ReactElement {
   const { transformValue, containerSize } = useStepWindow(
     count,
     active,
@@ -58,7 +58,7 @@ export function PillStepper({
         style={{ transform: transformValue }}
       >
         {animatingSteps.map((step) => (
-          <PillStep
+          <Step
             key={step.key}
             index={step.index}
             isActive={step.index === active}

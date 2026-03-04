@@ -1,10 +1,10 @@
 import { defineComponent, type PropType, toRef, computed, h } from "vue";
 import { useStepWindow } from "./composables/useStepWindow";
 import { useAnimatingSteps } from "./composables/useAnimatingSteps";
-import { PillStep } from "./PillStep";
+import { Step } from "./Step";
 
-export const PillStepper = defineComponent({
-  name: "PillStepper",
+export const Stepper = defineComponent({
+  name: "Stepper",
   props: {
     count: { type: Number, required: true },
     active: { type: Number, required: true },
@@ -73,7 +73,7 @@ export const PillStepper = defineComponent({
               style: { transform: transformValue },
             },
             steps.value.map((step) =>
-              h(PillStep, {
+              h(Step, {
                 key: step.key,
                 index: step.index,
                 isActive: step.index === props.active,

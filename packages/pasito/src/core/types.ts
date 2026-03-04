@@ -1,4 +1,4 @@
-export interface PillStepperProps {
+export interface StepperProps {
   /** Total number of steps */
   count: number;
   /** Zero-based active step index */
@@ -21,7 +21,7 @@ export interface PillStepperProps {
   fillDuration?: number;
 }
 
-export interface PillStepProps {
+export interface StepProps {
   index: number;
   isActive: boolean;
   phase: "entering" | "stable" | "exiting";

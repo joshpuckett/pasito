@@ -1,6 +1,6 @@
-import type { PillStepProps } from "../core/types";
+import type { StepProps } from "../core/types";
 
-export function PillStep({
+export function Step({
   index,
   isActive,
   phase,
@@ -8,7 +8,7 @@ export function PillStep({
   filling,
   fillDuration,
   onClick,
-}: PillStepProps): React.ReactElement {
+}: StepProps): React.ReactElement {
   const classNames = [
     "pasito-step",
     isActive && "pasito-step-active",

@@ -1,7 +1,7 @@
 import { defineComponent, type PropType, h } from "vue";
 
-export const PillStep = defineComponent({
-  name: "PillStep",
+export const Step = defineComponent({
+  name: "Step",
   props: {
     index: { type: Number, required: true },
     isActive: { type: Boolean, required: true },

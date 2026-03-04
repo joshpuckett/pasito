@@ -1,3 +1,3 @@
-export { PillStepper } from "./PillStepper";
+export { Stepper } from "./Stepper";
 export { useAutoPlay } from "./hooks/useAutoPlay";
-export type { PillStepperProps, UseAutoPlayOptions, UseAutoPlayReturn } from "../core/types";
+export type { StepperProps, UseAutoPlayOptions, UseAutoPlayReturn } from "../core/types";

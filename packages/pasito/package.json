@@ -1,6 +1,6 @@
 {
   "name": "pasito",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A dependency-free stepper/progress indicator with pure CSS transitions — React & Vue",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -23,8 +23,12 @@
     },
     "./styles.css": "./dist/index.css"
   },
-  "files": ["dist"],
-  "sideEffects": ["*.css"],
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch"
@@ -35,9 +39,15 @@
     "vue": ">=3"
   },
   "peerDependenciesMeta": {
-    "react": { "optional": true },
-    "react-dom": { "optional": true },
-    "vue": { "optional": true }
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "react": "^19.0.0",

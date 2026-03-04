@@ -3,8 +3,8 @@ export { StepAnimator } from "./StepAnimator";
 export { AutoPlayController } from "./AutoPlayController";
 export type {
   AnimatingStep,
-  PillStepperProps,
-  PillStepProps,
+  StepperProps,
+  StepProps,
   UseAutoPlayOptions,
   UseAutoPlayReturn,
 } from "./types";
