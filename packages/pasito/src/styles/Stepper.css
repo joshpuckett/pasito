@@ -1,7 +1,11 @@
 .pasito-container {
   --pill-dot-size: 8px;
   --pill-active-width: 24px;
-  --pill-gap: 6px;
+  --pill-whitespace-gap: 0px;
+  --pill-hitbox-padding-x: 8px;
+  --pill-hitbox-padding-y: 24px;
+  --pill-padding-horizontal: 6px;
+  --pill-padding-vertical: 0px;
   --pill-duration: 500ms;
   --pill-easing: cubic-bezier(0.215, 0.61, 0.355, 1);
   --pill-bg: rgba(0, 0, 0, 0.12);
@@ -12,38 +16,36 @@
   --pill-container-border: rgba(0, 0, 0, 0.06);
 
   display: inline-flex;
-  padding: 6px 10px;
+  padding: var(--pill-padding-vertical) var(--pill-padding-horizontal);
   background: var(--pill-container-bg);
   border-radius: var(--pill-container-radius);
   border: 1px solid var(--pill-container-border);
   overflow: hidden;
 }
+.pasito-container.pasito-vertical {
+  padding: var(--pill-padding-horizontal) var(--pill-padding-vertical);
+}
 
 .pasito-track {
   display: flex;
   align-items: center;
-  margin-left: calc(-1 * var(--pill-gap));
   transition: transform var(--pill-duration) var(--pill-easing);
+  gap: var(--pill-whitespace-gap);
 }
 
 .pasito-vertical .pasito-track {
   flex-direction: column;
   margin-left: 0;
-  margin-top: calc(-1 * var(--pill-gap));
 }
 
 .pasito-step {
   position: relative;
-  width: var(--pill-dot-size);
-  height: var(--pill-dot-size);
-  border-radius: 999px;
+  width: calc(var(--pill-dot-size) + var(--pill-hitbox-padding-x));
+  height: calc(var(--pill-dot-size) + var(--pill-hitbox-padding-y));
+  border-radius: 0px;
   border: none;
-  padding: 0;
   cursor: pointer;
-  background: var(--pill-bg);
   flex-shrink: 0;
-  overflow: hidden;
-  margin-left: var(--pill-gap);
   margin-top: 0;
   transform-origin: center center;
   transition:
@@ -54,55 +56,85 @@
     transform var(--pill-duration) var(--pill-easing),
     margin-left var(--pill-duration) var(--pill-easing),
     margin-top var(--pill-duration) var(--pill-easing);
+
+  /* expand hitbox & bg color on .pasito-pill-inner child */
+  background: transparent;
 }
 
 .pasito-vertical .pasito-step {
   margin-left: 0;
-  margin-top: var(--pill-gap);
+  padding: 0px var(--pill-padding-vertical);
+
+  width: calc(var(--pill-dot-size) + var(--pill-hitbox-padding-y));
+  height: calc(var(--pill-dot-size) + var(--pill-hitbox-padding-x));
+}
+
+.pasito-step .pasito-pill-inner {
+  position: absolute;
+  background: var(--pill-bg);
+  left: calc(var(--pill-hitbox-padding-x) * 0.5);
+  top: calc(var(--pill-hitbox-padding-y) * 0.5);
+  width: calc(100% - var(--pill-hitbox-padding-x));
+  height: calc(100% - var(--pill-hitbox-padding-y));
+  border-radius: var(--pill-container-radius);
+  overflow: hidden;
+  pointer-events: none;
+  transition: inherit;
+}
+
+.pasito-vertical .pasito-step .pasito-pill-inner {
+  left: calc(var(--pill-hitbox-padding-y) * 0.5);
+  top: calc(var(--pill-hitbox-padding-x) * 0.5);
+  width: calc(100% - var(--pill-hitbox-padding-y));
+  height: calc(100% - var(--pill-hitbox-padding-x));
 }
 
 .pasito-step:focus-visible {
+  outline: none;
+}
+.pasito-step:focus-visible .pasito-pill-inner {
   outline: 2px solid rgba(0, 0, 0, 0.3);
   outline-offset: 2px;
 }
 
 .pasito-step-active {
-  width: var(--pill-active-width);
+  width: calc(var(--pill-active-width) + var(--pill-hitbox-padding-x));
+}
+.pasito-step-active .pasito-pill-inner {
   background: var(--pill-active-bg);
 }
 
 .pasito-vertical .pasito-step-active {
-  width: var(--pill-dot-size);
-  height: var(--pill-active-width);
+  width: calc(var(--pill-dot-size) + var(--pill-hitbox-padding-y));
+  height: calc(var(--pill-active-width) + var(--pill-hitbox-padding-x));
 }
 
-/* Fill progress bar */
-.pasito-step::after {
+/* Fill progress bar — lives inside .pasito-pill-inner so overflow:hidden clips it to the pill shape */
+.pasito-step .pasito-pill-inner::after {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   width: 0;
-  border-radius: inherit;
+  height: 100%;
   background: var(--pill-fill-bg);
   pointer-events: none;
 }
 
-.pasito-vertical .pasito-step::after {
+.pasito-vertical .pasito-step .pasito-pill-inner::after {
   right: 0;
   bottom: auto;
-  width: auto;
+  width: 100%;
   height: 0;
 }
 
-.pasito-step-filling::after {
+.pasito-step-filling .pasito-pill-inner::after {
   width: 100%;
   transition: width var(--pill-fill-duration, 3000ms) linear;
 }
 
-.pasito-vertical .pasito-step-filling::after {
-  width: auto;
+.pasito-vertical .pasito-step-filling .pasito-pill-inner::after {
   height: 100%;
   transition: height var(--pill-fill-duration, 3000ms) linear;
 }
@@ -146,7 +178,7 @@
   .pasito-track {
     transition-duration: 0ms !important;
   }
-  .pasito-step-filling::after {
+  .pasito-step-filling .pasito-pill-inner::after {
     transition-duration: 0ms !important;
   }
 }

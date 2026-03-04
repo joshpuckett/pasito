@@ -36,6 +36,8 @@ export function Step({
       aria-selected={isActive}
       aria-label={`Step ${index + 1}`}
       tabIndex={isActive ? 0 : -1}
-    />
+    >
+      <span className="pasito-pill-inner" aria-hidden="true" />
+    </button>
   );
 }

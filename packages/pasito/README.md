@@ -188,7 +188,11 @@ Override any CSS custom property via a class:
 |----------|---------|-------------|
 | `--pill-dot-size` | `8px` | Diameter of inactive dots |
 | `--pill-active-width` | `24px` | Width of the active pill (or height in vertical) |
-| `--pill-gap` | `6px` | Space between steps |
+| `--pill-whitespace-gap` | `0px` | Non-clickable space between steps |
+| `--pill-hitbox-padding-x` | `6px` | Horizontal padding for click/tap hitbox |
+| `--pill-hitbox-padding-y` | `12px` | Vertical padding for click/tap hitbox |
+| `--pill-padding-horizontal` | `6px` | Horizontal padding for the container |
+| `--pill-padding-vertical` | `0px` | Vertical padding for the container |
 | `--pill-bg` | `rgba(0,0,0,0.12)` | Inactive dot color |
 | `--pill-active-bg` | `rgba(0,0,0,0.8)` | Active pill color |
 | `--pill-fill-bg` | `rgba(255,255,255,0.45)` | Autoplay fill bar color |

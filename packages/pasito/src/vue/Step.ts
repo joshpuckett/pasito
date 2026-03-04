@@ -34,15 +34,19 @@ export const Step = defineComponent({
         style["--pill-fill-duration"] = `${props.fillDuration}ms`;
       }
 
-      return h("button", {
-        class: classNames,
-        style,
-        onClick: () => emit("click"),
-        role: "tab",
-        "aria-selected": props.isActive,
-        "aria-label": `Step ${props.index + 1}`,
-        tabindex: props.isActive ? 0 : -1,
-      });
+      return h(
+        "button",
+        {
+          class: classNames,
+          style,
+          onClick: () => emit("click"),
+          role: "tab",
+          "aria-selected": props.isActive,
+          "aria-label": `Step ${props.index + 1}`,
+          tabindex: props.isActive ? 0 : -1,
+        },
+        [h("span", { class: "pasito-pill-inner", "aria-hidden": "true" })],
+      );
     };
   },
 });
