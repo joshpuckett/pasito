@@ -1,0 +1,148 @@
+.pasito-container {
+  --pill-dot-size: 8px;
+  --pill-active-width: 24px;
+  --pill-gap: 6px;
+  --pill-duration: 500ms;
+  --pill-easing: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --pill-bg: rgba(0, 0, 0, 0.12);
+  --pill-active-bg: rgba(0, 0, 0, 0.8);
+  --pill-fill-bg: rgba(255, 255, 255, 0.45);
+  --pill-container-bg: rgba(0, 0, 0, 0.04);
+  --pill-container-radius: 999px;
+  --pill-container-border: rgba(0, 0, 0, 0.06);
+
+  display: inline-flex;
+  padding: 6px 10px;
+  background: var(--pill-container-bg);
+  border-radius: var(--pill-container-radius);
+  border: 1px solid var(--pill-container-border);
+  overflow: hidden;
+}
+
+.pasito-track {
+  display: flex;
+  align-items: center;
+  margin-left: calc(-1 * var(--pill-gap));
+  transition: transform var(--pill-duration) var(--pill-easing);
+}
+
+.pasito-vertical .pasito-track {
+  flex-direction: column;
+  margin-left: 0;
+  margin-top: calc(-1 * var(--pill-gap));
+}
+
+.pasito-step {
+  position: relative;
+  width: var(--pill-dot-size);
+  height: var(--pill-dot-size);
+  border-radius: 999px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: var(--pill-bg);
+  flex-shrink: 0;
+  overflow: hidden;
+  margin-left: var(--pill-gap);
+  margin-top: 0;
+  transform-origin: center center;
+  transition:
+    width var(--pill-duration) var(--pill-easing),
+    height var(--pill-duration) var(--pill-easing),
+    background var(--pill-duration) var(--pill-easing),
+    opacity var(--pill-duration) var(--pill-easing),
+    transform var(--pill-duration) var(--pill-easing),
+    margin-left var(--pill-duration) var(--pill-easing),
+    margin-top var(--pill-duration) var(--pill-easing);
+}
+
+.pasito-vertical .pasito-step {
+  margin-left: 0;
+  margin-top: var(--pill-gap);
+}
+
+.pasito-step:focus-visible {
+  outline: 2px solid rgba(0, 0, 0, 0.3);
+  outline-offset: 2px;
+}
+
+.pasito-step-active {
+  width: var(--pill-active-width);
+  background: var(--pill-active-bg);
+}
+
+.pasito-vertical .pasito-step-active {
+  width: var(--pill-dot-size);
+  height: var(--pill-active-width);
+}
+
+/* Fill progress bar */
+.pasito-step::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--pill-fill-bg);
+  transform: scaleX(0);
+  transform-origin: left center;
+  pointer-events: none;
+}
+
+.pasito-vertical .pasito-step::after {
+  transform: scaleY(0);
+  transform-origin: center top;
+}
+
+.pasito-step-filling::after {
+  transform: scaleX(1);
+  transition: transform var(--pill-fill-duration, 3000ms) linear;
+}
+
+.pasito-vertical .pasito-step-filling::after {
+  transform: scaleY(1);
+  transition: transform var(--pill-fill-duration, 3000ms) linear;
+}
+
+/* Enter: initial state (width:0, margin:0, invisible).
+   The step renders at this state, browser paints, then the class
+   is removed and CSS transitions animate to the natural size. */
+.pasito-entering {
+  width: 0;
+  margin-left: 0;
+  margin-top: 0;
+  opacity: 0;
+  transform: scale(0);
+  transition-duration: 250ms;
+}
+
+.pasito-vertical .pasito-entering {
+  width: var(--pill-dot-size);
+  height: 0;
+}
+
+/* Exit: transition to collapsed state.
+   After the transition, the step is removed from the DOM.
+   Since width and margin are both 0, removal causes zero layout shift. */
+.pasito-exiting {
+  width: 0;
+  margin-left: 0;
+  margin-top: 0;
+  opacity: 0;
+  transform: scale(0);
+  transition-duration: 250ms;
+}
+
+.pasito-vertical .pasito-exiting {
+  width: var(--pill-dot-size);
+  height: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pasito-step,
+  .pasito-track {
+    transition-duration: 0ms !important;
+  }
+  .pasito-step-filling::after {
+    transition-duration: 0ms !important;
+  }
+}

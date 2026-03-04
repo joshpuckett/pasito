@@ -1,0 +1,9 @@
+CLAUDE.md
+node_modules/
+dist/
+.next/
+.turbo/
+*.tsbuildinfo
+
+# Demo app (playground lives on joshpuckett.me)
+apps/demo/
