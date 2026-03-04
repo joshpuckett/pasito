@@ -10,13 +10,18 @@
   --pill-container-bg: rgba(0, 0, 0, 0.04);
   --pill-container-radius: 999px;
   --pill-container-border: rgba(0, 0, 0, 0.06);
+  --pill-padding-horizontal: 15px;
+  --pill-padding-vertical: 15px;
 
   display: inline-flex;
-  padding: 6px 10px;
+  padding: 0px var(--pill-padding-horizontal);
   background: var(--pill-container-bg);
   border-radius: var(--pill-container-radius);
   border: 1px solid var(--pill-container-border);
   overflow: hidden;
+}
+.pasito-container.pasito-vertical {
+  padding: var(--pill-padding-vertical) 0px;
 }
 
 .pasito-track {
@@ -38,11 +43,11 @@
   height: var(--pill-dot-size);
   border-radius: 999px;
   border: none;
-  padding: 0;
+  /* padding: 0; */
   cursor: pointer;
-  background: var(--pill-bg);
+  /* background: var(--pill-bg); */
   flex-shrink: 0;
-  overflow: hidden;
+  /* overflow: hidden; */
   margin-left: var(--pill-gap);
   margin-top: 0;
   transform-origin: center center;
@@ -54,20 +59,71 @@
     transform var(--pill-duration) var(--pill-easing),
     margin-left var(--pill-duration) var(--pill-easing),
     margin-top var(--pill-duration) var(--pill-easing);
+
+  /* expand hitbox & bg color moved to ::before */
+  background: transparent;
+  padding: var(--pill-padding-vertical) 0px;
 }
 
 .pasito-vertical .pasito-step {
   margin-left: 0;
   margin-top: var(--pill-gap);
+  padding: 0px var(--pill-padding-vertical);
+}
+
+.pasito-step::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  background: var(--pill-fill-bg);
+
+  transition: inherit;
+
+  width: var(--pill-dot-size);
+  height: var(--pill-dot-size);
+  margin-top: auto;
+  margin-bottom: auto;
+  pointer-events: none;
+
+  background: var(--pill-bg);
+}
+.pasito-vertical .pasito-step::before {
+  margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pasito-step-active::before {
+  width: var(--pill-active-width);
+  height: var(--pill-dot-size);
+}
+.pasito-vertical .pasito-step-active::before {
+  width: var(--pill-dot-size);
+  height: var(--pill-active-width);
 }
 
 .pasito-step:focus-visible {
+  outline: none;
+}
+.pasito-step:focus-visible::before {
   outline: 2px solid rgba(0, 0, 0, 0.3);
   outline-offset: 2px;
 }
 
 .pasito-step-active {
   width: var(--pill-active-width);
+}
+.pasito-step-active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  border-radius: inherit;
   background: var(--pill-active-bg);
 }
 
@@ -87,6 +143,8 @@
   border-radius: inherit;
   background: var(--pill-fill-bg);
   pointer-events: none;
+  height: inherit;
+  margin: auto;
 }
 
 .pasito-vertical .pasito-step::after {
@@ -102,7 +160,7 @@
 }
 
 .pasito-vertical .pasito-step-filling::after {
-  width: auto;
+  width: inherit;
   height: 100%;
   transition: height var(--pill-fill-duration, 3000ms) linear;
 }

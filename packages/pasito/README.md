@@ -195,6 +195,8 @@ Override any CSS custom property via a class:
 | `--pill-container-bg` | `rgba(0,0,0,0.04)` | Container background |
 | `--pill-container-border` | `rgba(0,0,0,0.06)` | Container border color |
 | `--pill-container-radius` | `999px` | Container border radius |
+| `--pill-padding-horizontal` | `15px` | Horizontal padding for the container |
+| `--pill-padding-vertical` | `15px` | Vertical padding for the container |
 
 ### Dark theme example
 
