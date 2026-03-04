@@ -80,27 +80,31 @@
 .pasito-step::after {
   content: "";
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0;
   border-radius: inherit;
   background: var(--pill-fill-bg);
-  transform: scaleX(0);
-  transform-origin: left center;
   pointer-events: none;
 }
 
 .pasito-vertical .pasito-step::after {
-  transform: scaleY(0);
-  transform-origin: center top;
+  right: 0;
+  bottom: auto;
+  width: auto;
+  height: 0;
 }
 
 .pasito-step-filling::after {
-  transform: scaleX(1);
-  transition: transform var(--pill-fill-duration, 3000ms) linear;
+  width: 100%;
+  transition: width var(--pill-fill-duration, 3000ms) linear;
 }
 
 .pasito-vertical .pasito-step-filling::after {
-  transform: scaleY(1);
-  transition: transform var(--pill-fill-duration, 3000ms) linear;
+  width: auto;
+  height: 100%;
+  transition: height var(--pill-fill-duration, 3000ms) linear;
 }
 
 /* Enter: initial state (width:0, margin:0, invisible).
